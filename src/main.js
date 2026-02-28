@@ -28,10 +28,12 @@ function collectState() {
         ...state,
         rowsPerPage: parseInt(state.rowsPerPage),
         page: parseInt(state.page ?? 1),
-        totalFrom: state.totalFrom === '' ? undefined : Number(state.totalFrom),
-        totalTo: state.totalTo === '' ? undefined : Number(state.totalTo)
+        totalFrom: state.totalFrom ? Number(state.totalFrom) : undefined,
+        totalTo: state.totalTo ? Number(state.totalTo) : undefined
     };
 }
+
+
 
 /**
  * Перерисовка состояния таблицы при любых изменениях

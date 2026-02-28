@@ -1,9 +1,8 @@
 import {createComparison, defaultRules} from "../lib/compare.js";
 
-// @todo: #4.3 — настроить компаратор
-const compare = createComparison(defaultRules);
-
 export function initFiltering(elements, indexes) {
+    // @todo: #4.3 — настроить компаратор
+    const compare = createComparison(defaultRules);
     // @todo: #4.1 — заполнить выпадающие списки опциями
     Object.keys(indexes).forEach((elementName) => {
     elements[elementName].append(
