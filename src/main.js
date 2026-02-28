@@ -22,18 +22,20 @@ const {data, ...indexes} = initData(sourceData);
  * @returns {Object}
  */
 function collectState() {
-    const state = processFormData(new FormData(sampleTable.container));
+    const raw = processFormData(new FormData(sampleTable.container));
+
+    const from = raw.totalFrom ? Number(raw.totalFrom) : undefined;
+    const to = raw.totalTo ? Number(raw.totalTo) : undefined;
+
+    const { totalFrom, totalTo, ...state } = raw;
 
     return {
         ...state,
-        rowsPerPage: parseInt(state.rowsPerPage),
-        page: parseInt(state.page ?? 1),
-        totalFrom: state.totalFrom ? Number(state.totalFrom) : undefined,
-        totalTo: state.totalTo ? Number(state.totalTo) : undefined
+        rowsPerPage: Number(raw.rowsPerPage),
+        page: Number(raw.page ?? 1),
+        total: [from, to]
     };
 }
-
-
 
 /**
  * Перерисовка состояния таблицы при любых изменениях
@@ -49,6 +51,7 @@ function render(action) {
     result = applyPagination(result, state, action);
 
     sampleTable.render(result)
+    console.log(state.total);
 }
 
 const sampleTable = initTable({
@@ -81,7 +84,7 @@ const applySorting = initSorting([
 const applyFiltering = initFiltering(
     sampleTable.filter.elements,
     {
-        searchBySeller: indexes.sellers
+        searchBySeller: indexes.sellers,
     }
 );
 
