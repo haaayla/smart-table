@@ -24,18 +24,12 @@ const {data, ...indexes} = initData(sourceData);
 function collectState() {
     const state = processFormData(new FormData(sampleTable.container));
 
-    const rowsPerPage = parseInt(state.rowsPerPage);
-    const page = parseInt(state.page ?? 1);
-
-    const totalFrom = parseFloat(state.totalFrom);
-    const totalTo = parseFloat(state.totalTo);
-
     return {
         ...state,
-        rowsPerPage,
-        page,
-        totalFrom,
-        totalTo
+        rowsPerPage: parseInt(state.rowsPerPage),
+        page: parseInt(state.page ?? 1),
+        totalFrom: state.totalFrom === '' ? undefined : Number(state.totalFrom),
+        totalTo: state.totalTo === '' ? undefined : Number(state.totalTo)
     };
 }
 

@@ -24,7 +24,6 @@ export function initFiltering(elements, indexes) {
 
             if(input) {
                 input.value = '';
-                state[fieldName] = '';
             }
         }
 
